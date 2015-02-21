@@ -75,6 +75,8 @@ struct cons_stdtuple
   tail_type get_tail()const{return tail_ctor::create(t);}
     
   const StdTuple& t;
+private:
+  cons_stdtuple& operator=(const cons_stdtuple&);
 };
 
 template<typename StdTuple>
