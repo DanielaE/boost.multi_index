@@ -69,7 +69,7 @@ void test_capacity()
   BOOST_TEST(rs.back()==666);
   BOOST_TEST(rs.size()<=rs.capacity());
 
-  unsigned int c=rs.capacity();
+  std::size_t c=rs.capacity();
   rs.resize(10,20);
   BOOST_TEST(rs.size()==10);
   BOOST_TEST(rs.capacity()==c);
