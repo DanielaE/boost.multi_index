@@ -578,6 +578,14 @@ public:
     }
   }
 
+  struct equal_to
+  {
+    typedef bool result_type;
+    BOOST_CONSTEXPR bool operator()(const value_type& lhs, const value_type& rhs) const {
+      return lhs == rhs;
+    }
+  };
+  
   void remove(value_param_type value)
   {
     BOOST_MULTI_INDEX_RND_INDEX_CHECK_INVARIANT;
@@ -585,7 +593,7 @@ public:
       end()-make_iterator(
         random_access_index_remove<node_type>(
           ptrs,
-          ::boost::bind(std::equal_to<value_type>(),::boost::arg<1>(),value)));
+          ::boost::bind(equal_to(),::boost::arg<1>(),value)));
     while(n--)pop_back();
   }
 
@@ -604,7 +612,7 @@ public:
     difference_type n=
       end()-make_iterator(
         random_access_index_unique<node_type>(
-          ptrs,std::equal_to<value_type>()));
+          ptrs,equal_to()));
     while(n--)pop_back();
   }
 

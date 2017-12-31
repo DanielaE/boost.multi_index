@@ -515,11 +515,19 @@ public:
     }
   }
 
+  struct equal_to
+  {
+    typedef bool result_type;
+    BOOST_CONSTEXPR bool operator()(const value_type& lhs, const value_type& rhs) const {
+      return lhs == rhs;
+    }
+  };
+  
   void remove(value_param_type value)
   {
     sequenced_index_remove(
       *this,
-      ::boost::bind(std::equal_to<value_type>(),::boost::arg<1>(),value));
+      ::boost::bind(equal_to(),::boost::arg<1>(),value));
   }
 
   template<typename Predicate>
@@ -530,7 +538,7 @@ public:
 
   void unique()
   {
-    sequenced_index_unique(*this,std::equal_to<value_type>());
+    sequenced_index_unique(*this,equal_to());
   }
 
   template <class BinaryPredicate>
